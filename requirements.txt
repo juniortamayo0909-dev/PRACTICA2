@@ -1,5 +1,6 @@
 streamlit
 pandas
-scikit-learn
-streamlit-lottie
 requests
+streamlit-lottie
+scikit-learn
+plotly
