@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# ESTILOS
+# ESTILOS CSS
 st.markdown("""
 <style>
 
@@ -63,7 +63,7 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
-# FUNCIÓN LOTTIE
+# FUNCIÓN PARA ANIMACIONES
 def load_lottie(url):
 
     r = requests.get(url)
@@ -89,17 +89,20 @@ st_lottie(gaming_animation, height=300)
 st.title("🎮 Clasificador de Juegos Más Vendidos")
 
 st.markdown("""
-<h3>Explora información de los videojuegos más vendidos</h3>
+<h3>
+Explora información de los videojuegos más vendidos del mundo
+</h3>
 """, unsafe_allow_html=True)
 
 # CARGAR DATASET
 @st.cache_data
 def load_data():
+
     return pd.read_csv("vgsales.csv")
 
 df = load_data()
 
-# CORREGIR NOMBRES DE COLUMNAS
+# CORREGIR COLUMNAS
 df.columns = df.columns.str.strip().str.lower()
 
 # SIDEBAR
@@ -109,13 +112,13 @@ with st.sidebar:
 
     st.header("📊 Información")
 
-    st.write(f"Cantidad de juegos: {len(df)}")
+    st.write(f"🎮 Juegos: {len(df)}")
 
-    st.write(f"Plataformas: {df['platform'].nunique()}")
+    st.write(f"🕹 Plataformas: {df['platform'].nunique()}")
 
-    st.write(f"Géneros: {df['genre'].nunique()}")
+    st.write(f"🎲 Géneros: {df['genre'].nunique()}")
 
-# SELECTOR
+# SELECTOR DE JUEGO
 juego = st.selectbox(
     "🎮 Seleccione un videojuego",
     sorted(df['name'].unique())
@@ -174,7 +177,51 @@ if st.button("🔍 Buscar Información"):
     else:
         st.error("❌ Juego no encontrado")
 
-# FOOTER
+# TOP 10
+st.markdown("---")
+
+st.subheader("🏆 Top 10 Juegos Más Vendidos")
+
+top10 = df.sort_values(
+    by='global_sales',
+    ascending=False
+).head(10)
+
+st.dataframe(
+    top10[
+        [
+            'name',
+            'platform',
+            'genre',
+            'publisher',
+            'global_sales'
+        ]
+    ]
+)
+
+# DATASET COMPLETO
+st.markdown("---")
+
+st.subheader("📋 Dataset Completo")
+
+if st.checkbox("Mostrar dataset completo"):
+    st.dataframe(df)
+
+# MÉTRICAS
+st.markdown("---")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric("🎮 Juegos", len(df))
+
+with col2:
+    st.metric("🕹 Plataformas", df['platform'].nunique())
+
+with col3:
+    st.metric("🎲 Géneros", df['genre'].nunique())
+
+# CARACTERÍSTICAS
 st.markdown("---")
 
 st.markdown("""
@@ -184,14 +231,19 @@ st.markdown("""
 ✅ Diseño gamer moderno  
 ✅ Animaciones interactivas  
 ✅ Información completa  
+✅ Top 10 juegos más vendidos  
+✅ Dataset interactivo  
 ✅ Compatible con Streamlit Cloud  
 """)
 
 # GOOGLE COLAB
-st.markdown("""
-### 📘 Google Colab del Proyecto
-""")
+st.markdown("---")
 
-st.markdown(
-    "[🔗 Abrir Google Colab](https://colab.research.google.com/drive/1OT7LM7ArkOZlrAyFH9CYhoLjwSRjCVhf?usp=sharing)"
+st.subheader("📘 Google Colab del Proyecto")
+
+st.write("Entrenamiento del modelo y desarrollo completo:")
+
+st.link_button(
+    "🚀 Abrir Google Colab",
+    "https://colab.research.google.com/drive/1OT7LM7ArkOZlrAyFH9CYhoLjwSRjCVhf?usp=sharing"
 )
