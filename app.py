@@ -158,8 +158,7 @@ st.markdown("[Abrir Google Colab](https://colab.research.google.com/drive/1OT7LM
 
 La página tendrá:
 
-✅ Buscador de juegos
-✅ Datos completos del videojuego
-✅ Diseño moderno
-✅ Animaciones
-✅ Compatible con GitHub y Streamlit Cloud
+st.write("✅ Buscador de juegos")
+st.write("✅ Datos completos del videojuego")
+st.write("✅ Diseño moderno")
+st.write("✅ Animaciones")
