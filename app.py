@@ -148,17 +148,12 @@ Página oficial:
 
 ## Google Colab del Proyecto
 
+
+st.markdown("""
+✅ Buscador de juegos  
+✅ Datos completos del videojuego  
+✅ Diseño moderno  
+✅ Animaciones  
+""")
 Puedes acceder al entrenamiento y desarrollo del modelo en el siguiente enlace:
-
 st.markdown("[Abrir Google Colab](https://colab.research.google.com/drive/1OT7LM7ArkOZlrAyFH9CYhoLjwSRjCVhf?usp=sharing)")
-
----
-
-## Resultado
-
-La página tendrá:
-
-st.write("✅ Buscador de juegos")
-st.write("✅ Datos completos del videojuego")
-st.write("✅ Diseño moderno")
-st.write("✅ Animaciones")
