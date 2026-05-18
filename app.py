@@ -11,13 +11,9 @@ st.set_page_config(
     layout="wide"
 )
 
-# CSS Y ANIMACIONES
+# ESTILOS
 st.markdown("""
 <style>
-
-body {
-    background-color: #0f172a;
-}
 
 .main {
     background: linear-gradient(135deg, #0f172a, #1e293b);
@@ -69,6 +65,7 @@ h1, h2, h3 {
 
 # FUNCIÓN LOTTIE
 def load_lottie(url):
+
     r = requests.get(url)
 
     if r.status_code != 200:
@@ -92,9 +89,7 @@ st_lottie(gaming_animation, height=300)
 st.title("🎮 Clasificador de Juegos Más Vendidos")
 
 st.markdown("""
-<h3>
-Explora información de los videojuegos más vendidos del mundo
-</h3>
+<h3>Explora información de los videojuegos más vendidos</h3>
 """, unsafe_allow_html=True)
 
 # CARGAR DATASET
@@ -103,6 +98,9 @@ def load_data():
     return pd.read_csv("vgsales.csv")
 
 df = load_data()
+
+# CORREGIR NOMBRES DE COLUMNAS
+df.columns = df.columns.str.strip().str.lower()
 
 # SIDEBAR
 with st.sidebar:
@@ -113,14 +111,14 @@ with st.sidebar:
 
     st.write(f"Cantidad de juegos: {len(df)}")
 
-    st.write(f"Plataformas: {df['Platform'].nunique()}")
+    st.write(f"Plataformas: {df['platform'].nunique()}")
 
-    st.write(f"Géneros: {df['Genre'].nunique()}")
+    st.write(f"Géneros: {df['genre'].nunique()}")
 
 # SELECTOR
 juego = st.selectbox(
     "🎮 Seleccione un videojuego",
-    sorted(df['Name'].unique())
+    sorted(df['name'].unique())
 )
 
 # BOTÓN
@@ -129,7 +127,7 @@ if st.button("🔍 Buscar Información"):
     with st.spinner("Buscando juego..."):
         time.sleep(1)
 
-    resultado = df[df['Name'] == juego]
+    resultado = df[df['name'] == juego]
 
     if not resultado.empty:
 
@@ -140,35 +138,35 @@ if st.button("🔍 Buscar Información"):
         st.markdown(f"""
         <div class="card">
 
-        <h2>{fila['Name']}</h2>
+        <h2>{fila['name']}</h2>
 
         <hr>
 
         <h3>🎯 Información General</h3>
 
-        <p><b>🏆 Rank:</b> {fila['Rank']}</p>
+        <p><b>🏆 Rank:</b> {fila['rank']}</p>
 
-        <p><b>🕹 Plataforma:</b> {fila['Platform']}</p>
+        <p><b>🕹 Plataforma:</b> {fila['platform']}</p>
 
-        <p><b>📅 Año:</b> {fila['Year']}</p>
+        <p><b>📅 Año:</b> {fila['year']}</p>
 
-        <p><b>🎲 Género:</b> {fila['Genre']}</p>
+        <p><b>🎲 Género:</b> {fila['genre']}</p>
 
-        <p><b>🏢 Publisher:</b> {fila['Publisher']}</p>
+        <p><b>🏢 Publisher:</b> {fila['publisher']}</p>
 
         <hr>
 
         <h3>💰 Ventas</h3>
 
-        <p><b>🇺🇸 NA Sales:</b> {fila['NA_Sales']} millones</p>
+        <p><b>🇺🇸 NA Sales:</b> {fila['na_sales']} millones</p>
 
-        <p><b>🇪🇺 EU Sales:</b> {fila['EU_Sales']} millones</p>
+        <p><b>🇪🇺 EU Sales:</b> {fila['eu_sales']} millones</p>
 
-        <p><b>🇯🇵 JP Sales:</b> {fila['JP_Sales']} millones</p>
+        <p><b>🇯🇵 JP Sales:</b> {fila['jp_sales']} millones</p>
 
-        <p><b>🌎 Other Sales:</b> {fila['Other_Sales']} millones</p>
+        <p><b>🌎 Other Sales:</b> {fila['other_sales']} millones</p>
 
-        <p><b>🔥 Global Sales:</b> {fila['Global_Sales']} millones</p>
+        <p><b>🔥 Global Sales:</b> {fila['global_sales']} millones</p>
 
         </div>
         """, unsafe_allow_html=True)
@@ -189,7 +187,7 @@ st.markdown("""
 ✅ Compatible con Streamlit Cloud  
 """)
 
-# LINK COLAB
+# GOOGLE COLAB
 st.markdown("""
 ### 📘 Google Colab del Proyecto
 """)
