@@ -150,7 +150,7 @@ Página oficial:
 
 Puedes acceder al entrenamiento y desarrollo del modelo en el siguiente enlace:
 
-[https://colab.research.google.com/drive/1OT7LM7ArkOZlrAyFH9CYhoLjwSRjCVhf?usp=sharing](https://colab.research.google.com/drive/1OT7LM7ArkOZlrAyFH9CYhoLjwSRjCVhf?usp=sharing)
+st.markdown("[Abrir Google Colab](https://colab.research.google.com/drive/1OT7LM7ArkOZlrAyFH9CYhoLjwSRjCVhf?usp=sharing)")
 
 ---
 
